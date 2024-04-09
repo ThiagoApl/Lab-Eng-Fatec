@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<head>
+    <title>Contador de Pessoas</title>
+    <style>
+* {
+    padding: 0;
+    margin: 0;
+}  
+body {
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+main {
+    background-color: yellow;
+    width: 350px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    width: 100%;
+    margin-bottom: 20px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        background-color: #110f0f;
+        color: #fff;
+        padding: 5px;
+        font-weight: bold;
+    }
+    h1 {
+        color: #222;
+        font-size: 100px;
+    }
+
+    #contador {
+            font-size: 20px;
+            margin: 10px;
+        }
+</style>
+
+</head>
+<body>
+<nav>
+    <p>Navegue entre as semanas:</p>
+    <a href="../index.html">Home</a>
+    <a href="../semana1/home.html">Semana 1</a>
+    <a href="../semana2/exercicio.html">Semana 2</a>
+    <a href="../semana3/home.html">Semana 3</a>
+    <a href="../semana4/exercicio.html">Semana 4</a>
+    <a href="../semana5/exercicio.html">Semana 5</a>
+    <a href="../semana6/exercicio.html">Semana 6</a>
+</nav>
+
+<div id="app">
+        <button onclick="incrementar('masculino')">Somar Masculino</button>
+        <button onclick="decrementar('masculino')">Subtrair Masculino</button>
+        <div id="contadorMasculino">0</div>
+        <button onclick="incrementar('feminino')">Somar Feminino</button>
+        <button onclick="decrementar('feminino')">Subtrair Feminino</button>
+        <div id="contadorFeminino">0</div>
+        <button onclick="resetar()">Voltar</button>
+        <div id="total">Total: 0</div>
+    </div>
+
+    <script>
+        var contadorMasculino = 0;
+        var contadorFeminino = 0;
+
+        function incrementar(sexo) {
+            if (sexo === 'masculino') {
+                contadorMasculino++;
+                document.getElementById('contadorMasculino').innerText = contadorMasculino;
+            } else {
+                contadorFeminino++;
+                document.getElementById('contadorFeminino').innerText = contadorFeminino;
+            }
+            atualizarTotal();
+        }
+
+        function decrementar(sexo) {
+            if (sexo === 'masculino' && contadorMasculino > 0) {
+                contadorMasculino--;
+                document.getElementById('contadorMasculino').innerText = contadorMasculino;
+            } else if (sexo === 'feminino' && contadorFeminino > 0) {
+                contadorFeminino--;
+                document.getElementById('contadorFeminino').innerText = contadorFeminino;
+            }
+            atualizarTotal();
+        }
+
+        function resetar() {
+            contadorMasculino = 0;
+            contadorFeminino = 0;
+            document.getElementById('contadorMasculino').innerText = contadorMasculino;
+            document.getElementById('contadorFeminino').innerText = contadorFeminino;
+            atualizarTotal();
+        }
+
+        function atualizarTotal() {
+            var total = contadorMasculino + contadorFeminino;
+            document.getElementById('total').innerText = 'Total: ' + total;
+        }
+    </script>
+</body>
+</html>
