@@ -6,53 +6,52 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
-<head>
-    <title>Contador de Pessoas</title>
     <style>
-* {
-    padding: 0;
-    margin: 0;
-}  
-body {
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-main {
-    background-color: yellow;
-    width: 350px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-button {
-    width: 100%;
-    margin-bottom: 20px;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        border-radius: 20px;
-        background-color: #110f0f;
-        color: #fff;
-        padding: 5px;
-        font-weight: bold;
-    }
-    h1 {
-        color: #222;
-        font-size: 100px;
-    }
-
-    #contador {
-            font-size: 20px;
-            margin: 10px;
+        *{
+            margin: 0;
+            padding: 0;
         }
-</style>
+        .fundo{
+            background-image: linear-gradient(45deg,black, crimson);
+            height: 100vh;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        .calculadora{
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 15px;
+            padding: 15px;
+        }
+        .botao{
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+            margin: 3px;
+            background-color: rgb(31,31,31);
+            border: none;
+            color: #fff;
+        }
+        .botao:hover{
+            background-color: black;
+        }
+        #resultado{
+            background-color: white;
+            width: 207px;
+            height: 30px;
+            margin: 5px;
+            font-size: 25px;
+            color: black;
+            text-align: right;
+            padding: 5px;
+        }
+    </style>
+
 
 </head>
 <body>
@@ -67,54 +66,69 @@ button {
     <a href="../semana6/exercicio.html">Semana 6</a>
 </nav>
 
-<div id="app">
-        <button onclick="incrementar('masculino')">Somar Masculino</button>
-        <button onclick="decrementar('masculino')">Subtrair Masculino</button>
-        <div id="contadorMasculino">0</div>
-        <button onclick="incrementar('feminino')">Somar Feminino</button>
-        <button onclick="decrementar('feminino')">Subtrair Feminino</button>
-        <div id="contadorFeminino">0</div>
-        <button onclick="resetar()">Voltar</button>
-        <div id="total">Total: 0</div>
+<div class="fundo">
+        
+        <div class="calculadora">
+            <h1>Calculadora</h1>
+            <p id="resultado"></p>
+            <table>
+                <tr>
+                    <td><button class="botao" onclick="clean()">C</button></td>
+                    <td><button class="botao" onclick="back()"><</button></td>
+                    <td><button class="botao" onclick="insert('/')">/</button></td>
+                    <td><button class="botao" onclick="insert('*')">X</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('7')">7</button></td>
+                    <td><button class="botao" onclick="insert('8')">8</button></td>
+                    <td><button class="botao" onclick="insert('9')">9</button></td>
+                    <td><button class="botao" onclick="insert('-')">-</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('4')">4</button></td>
+                    <td><button class="botao" onclick="insert('5')">5</button></td>
+                    <td><button class="botao" onclick="insert('6')">6</button></td>
+                    <td><button class="botao" onclick="insert('+')">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('1')">1</button></td>
+                    <td><button class="botao" onclick="insert('2')">2</button></td>
+                    <td><button class="botao" onclick="insert('3')">3</button></td>
+                    <td rowspan="2"><button class="botao" style="height: 106px;" onclick="calcular()">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" style="width: 106px;" onclick="insert('0')">0</button></td>
+                    <td><button class="botao" onclick="insert('.')">.</button></td>
+                </tr>
+            </table>
+        </div>
     </div>
-
     <script>
-        var contadorMasculino = 0;
-        var contadorFeminino = 0;
-
-        function incrementar(sexo) {
-            if (sexo === 'masculino') {
-                contadorMasculino++;
-                document.getElementById('contadorMasculino').innerText = contadorMasculino;
-            } else {
-                contadorFeminino++;
-                document.getElementById('contadorFeminino').innerText = contadorFeminino;
+        function insert(num)
+        {
+            var numero = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = numero + num;
+        }
+        function clean()
+        {
+            document.getElementById('resultado').innerHTML = "";
+        }
+        function back()
+        {
+            var resultado = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = resultado.substring(0, resultado.length -1);
+        }
+        function calcular()
+        {
+            var resultado = document.getElementById('resultado').innerHTML;
+            if(resultado)
+            {
+                document.getElementById('resultado').innerHTML = eval('resultado');
             }
-            atualizarTotal();
-        }
-
-        function decrementar(sexo) {
-            if (sexo === 'masculino' && contadorMasculino > 0) {
-                contadorMasculino--;
-                document.getElementById('contadorMasculino').innerText = contadorMasculino;
-            } else if (sexo === 'feminino' && contadorFeminino > 0) {
-                contadorFeminino--;
-                document.getElementById('contadorFeminino').innerText = contadorFeminino;
+            else
+            {
+                document.getElementById('resultado').innerHTML = "Nada..."
             }
-            atualizarTotal();
-        }
-
-        function resetar() {
-            contadorMasculino = 0;
-            contadorFeminino = 0;
-            document.getElementById('contadorMasculino').innerText = contadorMasculino;
-            document.getElementById('contadorFeminino').innerText = contadorFeminino;
-            atualizarTotal();
-        }
-
-        function atualizarTotal() {
-            var total = contadorMasculino + contadorFeminino;
-            document.getElementById('total').innerText = 'Total: ' + total;
         }
     </script>
 </body>
