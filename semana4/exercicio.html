@@ -16,5 +16,70 @@
     <a href="../semana3/home.html">Semana 3</a>
     <a href="../semana4/exercicio.html">Semana 4</a>
 </nav>
+    
+<h2>Formulário de Pessoa</h2>
+
+<form id="formPessoa">
+  Nome:<br>
+  <input type="text" id="nome" name="nome">
+  <br>
+  Sobrenome:<br>
+  <input type="text" id="sobrenome" name="sobrenome">
+  <br>
+  Email:<br>
+  <input type="text" id="email" name="email">
+  <br>
+  Data de Nascimento:<br>
+  <input type="date" id="data_nascimento" name="data_nascimento">
+  <br>
+  <input type="radio" id="Aluno" name="tipo" value="Aluno">
+  <label for="Aluno">Aluno</label><br>
+  <input type="radio"id="Professor"name="tipo" value="Professor">
+  <label for="Professor">Professor</label><br>
+
+  <div id="camposAdicionais"></div><br>
+  <input type="submit"value="Enviar">
+</form> 
+
+<script>
+class Pessoa {
+  constructor(nome, sobrenome, email, data_nascimento) {
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+    this.email = email;
+    this.data_nascimento = data_nascimento;
+  }
+
+  nomeCompleto() {
+    return this.nome + ' ' + this.sobrenome;
+  }
+}
+
+class Aluno extends Pessoa {
+  constructor(nome, sobrenome, email, data_nascimento, curso) {
+    super(nome, sobrenome, email, data_nascimento);
+    this.curso = curso;
+  }
+}
+
+class Professor extends Pessoa {
+  constructor(nome, sobrenome, email, data_nascimento, area_atuacao, link_lattes) {
+    super(nome, sobrenome, email, data_nascimento);
+    this.area_atuacao = area_atuacao;
+    this.link_lattes = link_lattes;
+  }
+}
+
+document.getElementById('formPessoa').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const nome = document.getElementById('nome').value;
+  const sobrenome = document.getElementById('sobrenome').value;
+  const email = document.getElementById('email').value;
+  const data_nascimento = document.getElementById('data_nascimento').value;
+  const pessoa = new Pessoa(nome, sobrenome, email, data_nascimento);
+  console.log(pessoa.nomeCompleto());
+});
+
+</script>
 </body>
 </html>
