@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letreiro</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" ></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+ 
+    <script type="text/babel">
+        function Typewriter() {
+            const [text, setText] = React.useState('');
+            const fullText = 'Venha Estudar na Fatec';
+            const delay = 250;
+        
+    React.useEffect(() => {
+        let currentIndex = 0;
+        const intervalid = setInterval(() => {
+            setText (fullText.substring(0, currentIndex + 1));
+            currentIndex++;
+            
+            if(currentIndex === fullText.length) {
+                clearInterval(intervalid);
+            }
+            },delay);
+
+            return ()=> clearInterval(intervalid);
+        }, []);
+
+        return (
+            <div>
+            <h1>{text}</h1>
+            </div>
+        );
+        }
+
+        ReactDOM.render(<Typewriter />, document.getElementById('root'));
+
+    </script>
+    <a href="index.html">Voltar</a>
+</body>
+</html>
